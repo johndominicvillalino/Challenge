@@ -1,23 +1,41 @@
+import React, {useState} from 'react'
 import logo from './logo.svg';
 import './App.css';
+import AddUserForm from './Components/AddUserForm/AddUserForm';
+import AddedUser from './Components/AddedUser/AddedUser'
 
 function App() {
+
+  const sampleData = [{
+    user: 'John',
+    age : 20,
+    key:'k10'
+  },]
+  
+  const [users, setUsers] = useState(sampleData);
+
+  const onAddUserHandler = usersData => {
+    setUsers(prevData => {
+      const updatedUsers = [...prevData]
+      updatedUsers.unshift({user: usersData.user, age: usersData.age, key:Math.random().toString()})
+      return updatedUsers
+    })
+
+    console.log(users)
+
+      }
+
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <section id='addUser-form'>
+        <AddUserForm onAddUser={onAddUserHandler} />
+      </section>
+
+      <section id='addedUser-list'>
+        <AddedUser addedUsers={users} />
+      </section>
     </div>
   );
 }
