@@ -6,6 +6,8 @@ const AddUserForm = props => {
 
     const [username, setUsername] = useState('')
     const [age, setAge] = useState('')
+    const [invalidCondition, setInvalidCondition] = useState(false)
+    const [invalidClass, setInvalidClass] = useState('')
 
     const usernameInputHandler = data => {
         setUsername(data.target.value)
@@ -18,9 +20,15 @@ const AddUserForm = props => {
 
     const formSubmitHandler = data => {
         data.preventDefault();
-           props.onAddUser({user: username,age: age})
+        props.onAddUser({ user: username, age: age })
         setUsername('')
         setAge('')
+        if (username.length === 0) {
+            setInvalidCondition(true)
+            setInvalidClass('invalid')
+        } else {
+            setInvalidClass('')
+        }
     }
 
     return (
@@ -28,7 +36,7 @@ const AddUserForm = props => {
             <div>
                 <div>
                     <label>Username</label>
-                    <input type='text' value={username} onChange={usernameInputHandler}></input>
+                    <input className={invalidCondition && invalidClass} type='text' value={username} onChange={usernameInputHandler}></input>
                 </div>
                 <div>
                     <label>Age (Years)</label>

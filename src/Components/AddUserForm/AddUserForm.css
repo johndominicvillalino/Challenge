@@ -23,6 +23,12 @@
     padding: 0 0.25rem;
 }
 
+.invalid {
+    background-color:pink;
+    border : red !important;
+}
+
+
 .AddUserForm__form-control label{
 
     font-weight: bold;
